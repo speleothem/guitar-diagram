@@ -62,10 +62,20 @@
 
 .fret-note:hover {
   background-color: red;
-  opacity: 1;
 }
 
-.fret-note.active {
+.fret-note.selected {
   background-color: blue;
+}
+
+.fret-note.root {
+  background-color: blueviolet;
+}
+
+.fret-note.interval {
+  background-color: turquoise;
+}
+
+.fret-note.shown {
   opacity: 1;
 }

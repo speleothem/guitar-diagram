@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import Guitar from "./Guitar";
+import Guitar, { NotePosition, INITIAL_STATE } from "./Guitar";
 import "./guitar.css";
 
 function App() {
-  const [state, setState] = useState();
+  const [state, setState] = useState(INITIAL_STATE);
+
+  function handleClickChangeFunctionWhatever(mcnote: NotePosition) {
+    setState({ ...state, selectedRoot: mcnote });
+  }
 
   return (
     <div className="container">
-      {/* @ts-ignore */}
-      <Guitar state={state} onChange={setState} />
+      <Guitar state={state} onChange={handleClickChangeFunctionWhatever} />
     </div>
   );
 }
