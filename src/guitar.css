@@ -30,7 +30,7 @@
   width: 100%;
   height: 250px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
   position: absolute;
 }
@@ -44,10 +44,9 @@
 }
 
 .fret {
-  width: 8px;
+  width: 100%;
   height: 100%;
-  background-color: #cccccc;
-  border-right: 3px solid #dddddd;
+  border-right: 10px solid #dddddd;
 }
 
 .string {

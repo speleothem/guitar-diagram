@@ -1,10 +1,29 @@
 import React from "react";
 
-type Tuning = string;
+type Tuning = string[];
+
+const NOTES: string[] = [
+  "A",
+  "A#",
+  "B",
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+];
+
+const getNoteIndex = (note: string): number => {
+  return NOTES.findIndex((n) => n == note);
+};
 
 type NoteObject = {
-  fret: number;
-  string: number;
+  stringIndex: number;
+  name: string;
 };
 
 type State = {
@@ -14,7 +33,7 @@ type State = {
 export default function Guitar({
   stringCount = 6,
   fretCount = 12,
-  tuning = "EADGBE",
+  tuning = ["E", "A", "D", "G", "B", "E"],
   onChange = () => {},
   state = { selectedNotes: [] },
 }: {
@@ -28,15 +47,47 @@ export default function Guitar({
     return <div className="fret" />;
   }
 
-  function Note({ active }: { active: boolean }) {
-    const classes = active ? "fret-note active" : "fret-note";
-    return <button className={classes} type="button" />;
+  function handleClick(stringIndex: number, name: string) {
+    console.log(`${stringIndex}: ${name}`);
+    onChange({
+      ...state,
+      selectedNotes: [...state.selectedNotes, { stringIndex, name }],
+    });
   }
 
-  function GuitarString() {
+  function Note({ name, stringIndex }: { name: string; stringIndex: number }) {
+    const active = state.selectedNotes.filter(
+      (n) => n.name == name && n.stringIndex == stringIndex
+    );
+    const classes = active.length > 0 ? "fret-note active" : "fret-note";
+    return (
+      <button
+        className={classes}
+        type="button"
+        onClick={() => handleClick(stringIndex, name)}
+      >
+        {name}
+      </button>
+    );
+  }
+
+  function GuitarString({
+    rootIndex,
+    index,
+  }: {
+    rootIndex: number;
+    index: number;
+  }) {
+    let notes: string[] = [];
+    for (let i = 0; i < fretCount; ++i) {
+      notes.push(NOTES[(rootIndex + i) % NOTES.length]);
+    }
+
     return (
       <div className="string">
-        {Array(fretCount).fill(<Note active={false} />)}
+        {notes.map((n) => (
+          <Note name={n} stringIndex={index} />
+        ))}
       </div>
     );
   }
@@ -47,7 +98,9 @@ export default function Guitar({
       <div className="body">
         <div className="frets">{Array(fretCount).fill(<Fret />)}</div>
         <div className="strings">
-          {Array(stringCount).fill(<GuitarString />)}
+          {tuning.map((startingNote: string, i) => (
+            <GuitarString rootIndex={getNoteIndex(startingNote)} index={i} />
+          ))}
         </div>
       </div>
     </div>
