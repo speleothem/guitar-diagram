@@ -1,0 +1,72 @@
+.container {
+  margin-top: 300px;
+}
+
+.neck {
+  width: 100%;
+  height: 250px;
+  background-color: bisque;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
+}
+
+.nut {
+  height: calc(100% + 30px);
+  width: 30px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+}
+
+.strings {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+}
+
+.frets {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+}
+
+.fret {
+  width: 8px;
+  height: 100%;
+  background-color: #cccccc;
+  border-right: 3px solid #dddddd;
+}
+
+.string {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.fret-note {
+  width: 100%;
+  opacity: 0;
+}
+
+.fret-note:hover {
+  background-color: red;
+  opacity: 1;
+}
+
+.fret-note.active {
+  background-color: blue;
+  opacity: 1;
+}
